@@ -21,10 +21,10 @@
 
 
 module alu #(parameter OP_WIDTH = 1)(
-    input  wire [OP_WIDTH-1:0] op1,
+    input  signed wire [OP_WIDTH-1:0] op1,
     input  wire [OP_WIDTH-1:0] op2,
     input  wire [2:0] control,
-    output reg [OP_WIDTH-1:0] res
+    output signed reg [OP_WIDTH-1:0] res
     );
     // assign res = (control == 1'b0) ? ~op1 : (op1 ^ op2);
     
@@ -34,6 +34,9 @@ module alu #(parameter OP_WIDTH = 1)(
       else if (control == 3'b010) res = op1 & op2;
       else if (control == 3'b011) res = op1 | op2;
       else if (control == 3'b100) res = ~(op1 ^ op2);
+      else if (control == 3'b101) res = op1 << op2;
+      else if (control == 3'b110) res = op1 >> op2;
+      else if (control == 3'b111) res = op1 >>> op2;
       else                        res = '0;
     end
     

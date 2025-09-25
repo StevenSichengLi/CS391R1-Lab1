@@ -22,9 +22,9 @@
 module alu_tb();
     parameter OP_WIDTH = 4;
     
-    reg  [OP_WIDTH-1:0] op1, op2;
-    reg  [2:0] control;
-    wire [OP_WIDTH-1:0] res;
+    reg signed [OP_WIDTH-1:0] op1, op2;
+    reg [2:0] control;
+    wire signed [OP_WIDTH-1:0] res;
 
     
     initial begin 
@@ -50,6 +50,15 @@ module alu_tb();
         
         // XNOR (control = 4)
         control = 3'b100; op1 = 4'b1010; op2 = 4'b1100; #10;
+        
+        // Logical left shift (control = 5) ans: 8
+        control = 3'b101; op1 = 4'b1010; op2 = 2; #10;
+
+        // Logical right shift (control = 6) ans: 2
+        control = 3'b110; op1 = 4'b1010; op2 = 2; #10;
+
+        // Arithmetic right shift (control = 7) ans: -2
+        control = 3'b111; op1 = 4'b1010; op2 = 2; #10;
 
         // Invalid
         control = 3'b111; op1 = 4'b1010; op2 = 4'b1100; #10;
