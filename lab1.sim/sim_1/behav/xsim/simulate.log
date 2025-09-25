@@ -1,3 +1,2 @@
 Time resolution is 1 ps
-$stop called at time : 110 ns : File "/home/ugrad/lsich/lab1/lab1.srcs/sim_1/new/alu_tb.sv" Line 66
-INFO: xsimkernel Simulation Memory Usage: 473308 KB (Peak: 530840 KB), Simulation CPU Usage: 1460 ms
+$stop called at time : 150 ns : File "/home/ugrad/lsich/lab1/lab1.srcs/sim_1/new/alu_tb.sv" Line 68

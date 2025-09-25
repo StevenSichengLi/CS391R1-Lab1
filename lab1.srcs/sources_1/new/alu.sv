@@ -20,24 +20,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module alu #(parameter OP_WIDTH = 1)(
+module alu #(parameter OP_WIDTH = 4)(
     input  wire signed [OP_WIDTH-1:0] op1,
-    input  wire [OP_WIDTH-1:0] op2,
-    input  wire [2:0] control,
-    output reg signed [OP_WIDTH-1:0] res
-    );
-    // assign res = (control == 1'b0) ? ~op1 : (op1 ^ op2);
-    
+    input  wire signed [OP_WIDTH-1:0] op2,
+    input  wire [3:0] control,
+    output reg  signed [OP_WIDTH-1:0] res
+);
+
     always_comb begin
-      if (control == 3'b000)      res = ~op1;
-      else if (control == 3'b001) res = op1 ^ op2;
-      else if (control == 3'b010) res = op1 & op2;
-      else if (control == 3'b011) res = op1 | op2;
-      else if (control == 3'b100) res = ~(op1 ^ op2);
-      else if (control == 3'b101) res = op1 << op2;
-      else if (control == 3'b110) res = op1 >> op2;
-      else if (control == 3'b111) res = op1 >>> op2;
-      else                        res = '0;
+        if      (control == 4'b0000) res = ~op1;
+        else if (control == 4'b0001) res = op1 ^ op2;
+        else if (control == 4'b0010) res = op1 & op2;
+        else if (control == 4'b0011) res = op1 | op2;
+        else if (control == 4'b0100) res = ~(op1 ^ op2);
+        else if (control == 4'b0101) res = op1 << op2;
+        else if (control == 4'b0110) res = op1 >> op2;
+        else if (control == 4'b0111) res = op1 >>> op2;
+        else if (control == 4'b1000) res = op1 + op2;
+        else if (control == 4'b1001) res = op1 - op2;
+        else                         res = {OP_WIDTH{1'b0}};
     end
-    
 endmodule
