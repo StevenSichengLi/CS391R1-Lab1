@@ -1,2 +1,2 @@
 Time resolution is 1 ps
-$stop called at time : 60 ns : File "/home/ugrad/lsich/lab1/lab1.srcs/sim_1/new/alu_tb.sv" Line 36
+$stop called at time : 80 ns : File "/home/ugrad/lsich/lab1/lab1.srcs/sim_1/new/alu_tb.sv" Line 57

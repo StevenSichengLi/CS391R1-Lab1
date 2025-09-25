@@ -20,20 +20,41 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module alu_tb();
-    reg op1, control, op2;
-    wire res;
+    parameter OP_WIDTH = 4;
+    
+    reg  [OP_WIDTH-1:0] op1, op2;
+    reg  [2:0] control;
+    wire [OP_WIDTH-1:0] res;
+
     
     initial begin 
         // NOT(control = 0)
-        control = 0; op1 = 0; op2 = 0; #10;
-        control = 0; op1 = 1; op2 = 0; #10;
+        /* control = 0; op1 = 0; op2 = 0; #10;
+        control = 0; op1 = 1; op2 = 0; #10;*/
+        control = 3'b000; op1 = 4'b1010; op2 = 4'b0000; #10;
+        control = 3'b000; op1 = 4'b1111; op2 = 4'b0000; #10;
+        
         // XOR (control = 1)
-        control = 1; op1 = 0; op2 = 0; #10;
+        /* control = 1; op1 = 0; op2 = 0; #10;
         control = 1; op1 = 0; op2 = 1; #10;
         control = 1; op1 = 1; op2 = 0; #10;
-        control = 1; op1 = 1; op2 = 1; #10;
+        control = 1; op1 = 1; op2 = 1; #10;*/
+        control = 3'b001; op1 = 4'b1010; op2 = 4'b1100; #10;
+        control = 3'b001; op1 = 4'b1111; op2 = 4'b0101; #10;
         
+        // AND (control = 2)
+        control = 3'b010; op1 = 4'b1010; op2 = 4'b1100; #10;
+        
+        // OR (control = 3)
+        control = 3'b011; op1 = 4'b1010; op2 = 4'b1100; #10;
+        
+        // XNOR (control = 4)
+        control = 3'b100; op1 = 4'b1010; op2 = 4'b1100; #10;
+
+        // Invalid
+        control = 3'b111; op1 = 4'b1010; op2 = 4'b1100; #10;
+
         $stop();
     end
-    alu dut (.control, .op1, .op2, .res);
+    alu #(.OP_WIDTH(OP_WIDTH)) dut (.control, .op1, .op2, .res);
 endmodule
