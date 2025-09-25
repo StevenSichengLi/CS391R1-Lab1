@@ -38,6 +38,11 @@ module alu #(parameter OP_WIDTH = 4)(
         else if (control == 4'b0111) res = op1 >>> op2;
         else if (control == 4'b1000) res = op1 + op2;
         else if (control == 4'b1001) res = op1 - op2;
+        
+        // trick learned from GPT! {{(OP_WIDTH-1){1'b0}} makes 3 0 zo pad our res value because all we need is just 1 bit but res is 4 bits
+        else if (control == 4'b1010) res = (op1 <  op2) ? {{(OP_WIDTH-1){1'b0}}, 1'b1} : '0;
+        else if (control == 4'b1011) res = (op1 == op2) ? {{(OP_WIDTH-1){1'b0}}, 1'b1} : '0;
+        else if (control == 4'b1100) res = (op1 >  op2) ? {{(OP_WIDTH-1){1'b0}}, 1'b1} : '0;
         else                         res = {OP_WIDTH{1'b0}};
     end
 endmodule
